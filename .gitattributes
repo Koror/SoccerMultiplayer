@@ -1,0 +1,4 @@
+* text=auto
+
+# Build
+*.dll filter=lfs diff=lfs merge=lfs -text
