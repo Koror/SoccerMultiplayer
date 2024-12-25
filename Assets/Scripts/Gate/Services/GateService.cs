@@ -1,7 +1,9 @@
 ﻿using Gate.Config;
 using Gate.Factories;
 using Gate.Views;
+using Mirror;
 using UnityEngine;
+using Zenject;
 
 namespace Gate.Services
 {
@@ -16,11 +18,17 @@ namespace Gate.Services
             _gateConfig = gateConfig;
         }
 
-        public GateView Create(int playerId, Color color)
+
+
+        public GateView Create(int playerId, Color color, Vector3 position, Quaternion rotation)
         {
-            var gate = _gateFactory.Create();
-            gate.Initialize(playerId, color,_gateConfig.Speed,_gateConfig.Distance);
-            return gate;
+            var gate = _gateFactory.Spawn(new SpawnMessage(){ position = position,rotation = rotation});
+            if(gate.TryGetComponent(out GateView gateView))
+            {
+                gateView.Initialize(playerId, color,_gateConfig.Speed,_gateConfig.Distance);
+                return gateView;
+            }
+            return null;
         }
     }
 }

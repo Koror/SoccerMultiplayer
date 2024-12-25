@@ -9,7 +9,7 @@ namespace Gate.Bootstrap
     {
         public override void InstallBindings()
         {
-            Container.Bind<GateFactory>().AsSingle().NonLazy();
+            Container.BindInterfacesAndSelfTo<GateFactory>().AsSingle().NonLazy();
             Container.Bind<GateService>().AsSingle().NonLazy();
         }
     }

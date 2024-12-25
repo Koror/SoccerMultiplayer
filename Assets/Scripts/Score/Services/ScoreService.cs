@@ -8,11 +8,11 @@ namespace Score.Services
     {
         private ScoreFactory _scoreFactory;
 
-        public ScoreService(ScoreFactory scoreFactory)
+        public ScoreService(ScoreFactory scoreFactory, PlayerStorage playerStorage)
         {
             _scoreFactory = scoreFactory;
 
-            PlayerStorage.Instance.PlayerAdded.Subscribe(x => Create(x.ScoreChanged, x.Name));
+            playerStorage.PlayerAdded.Subscribe(x => Create(x.ScoreChanged, x.Name));
         }
 
         public void Create(ReactiveProperty<int> scoreObservable,string name)

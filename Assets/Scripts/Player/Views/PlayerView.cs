@@ -24,6 +24,8 @@ namespace Player.Views
         public ReactiveProperty<int> ScoreChanged = new();
         
         private BallPool _ballPool;
+        private PlayerStorage _playerStorage;
+        
         private int _playerId;
         private float _minForce = 5f;
         private float _maxForce = 80f;
@@ -37,11 +39,11 @@ namespace Player.Views
         [SyncVar(hook = nameof(OnAddScore))]
         private int _score;
 
-        //only server injection
         [Inject]
-        private void Construct(BallPool ballPool)
+        private void Construct(BallPool ballPool, PlayerStorage playerStorage)
         {
             _ballPool = ballPool;
+            _playerStorage = playerStorage;
         }
 
         public void Initialize(Color color, string name, int playerID)
@@ -54,7 +56,7 @@ namespace Player.Views
         public override void OnStartClient()
         {
             base.OnStartClient();
-            PlayerStorage.Instance.Add(netId,this);
+            _playerStorage.Add(netId,this);
         }
 
         private void Update()

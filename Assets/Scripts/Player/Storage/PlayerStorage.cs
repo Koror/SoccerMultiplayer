@@ -6,21 +6,6 @@ namespace Player.Storage
 {
     public class PlayerStorage
     {
-        private static PlayerStorage _instance;
-        
-        public static PlayerStorage Instance
-        {
-            get
-            {
-                if (_instance == null)
-                {
-                    _instance = new PlayerStorage();
-                }
-
-                return _instance;
-            }
-        }
-        
         private Dictionary<uint,PlayerView> _players = new ();
 
         public Subject<PlayerView> PlayerAdded = new();

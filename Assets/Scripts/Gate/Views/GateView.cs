@@ -2,6 +2,8 @@
 using Mirror;
 using UnityEngine;
 using System;
+using Ball.Pool;
+using Zenject;
 
 namespace Gate.Views
 {

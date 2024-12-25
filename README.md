@@ -1,4 +1,4 @@
-# SocckerMultiplayer
+# SoccerMultiplayer
 
 Multiplayer soccer game for 4 player
 

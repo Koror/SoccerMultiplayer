@@ -1,5 +1,6 @@
 ﻿using Player.Factory;
 using Player.Services;
+using Player.Storage;
 using Zenject;
 
 namespace Player.Bootstrap
@@ -8,7 +9,8 @@ namespace Player.Bootstrap
     {
         public override void InstallBindings()
         {
-            Container.Bind<PlayerFactory>().AsSingle().NonLazy();
+            Container.Bind<PlayerStorage>().AsSingle().NonLazy();
+            Container.BindInterfacesAndSelfTo<PlayerFactory>().AsSingle().NonLazy();
             Container.Bind<PlayerService>().AsSingle().NonLazy();
         }
     }

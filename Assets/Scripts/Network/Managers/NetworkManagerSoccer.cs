@@ -13,7 +13,7 @@ namespace Network.Managers
 {
     public class NetworkManagerSoccer : NetworkManager
     {
-        [SerializeField] private List<Transform> spawnPositions;
+        [SerializeField] private List<Transform> _spawnPositions;
         [SerializeField] private PlayerColorConfig _colorConfig;
 
         public Action OnConnected;
@@ -34,17 +34,15 @@ namespace Network.Managers
 
         private void OnCreateCharacter(NetworkConnectionToClient conn, CreateCharacterMessage message)
         {
-            if (spawnPositions.Count != 4)
+            if (_spawnPositions.Count != 4)
             {
                 Debug.Log("NetworkManagerSoccer: Spawn Position is missing");
                 return;
             }
 
             //player
-            var point = spawnPositions[numPlayers];
-            var player = _playerService.Create();
-            player.transform.position = point.position;
-            player.transform.rotation = point.rotation;
+            var point = _spawnPositions[numPlayers];
+            var player = _playerService.Create(point.position,point.rotation);
 
             var color = _colorConfig.GetColorByType(message.Color);
             player.Initialize(color,message.Color.ToString(),numPlayers+1);
@@ -52,11 +50,9 @@ namespace Network.Managers
             _players.Add(numPlayers,player);
             
             //gate
-            var gate = _gateService.Create(numPlayers,color);
             var gatePosition = point.position;
             gatePosition.y = 0;
-            gate.transform.position = gatePosition;
-            gate.transform.rotation = point.rotation;
+            var gate = _gateService.Create(numPlayers,color,gatePosition,point.rotation);
             gate.Goal += SetGoal;
             NetworkServer.Spawn(gate.gameObject);
         }
