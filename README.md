@@ -4,7 +4,7 @@ Multiplayer soccer game for 4 player
 
 Implemented a ball pool for optimization
 
-Implemented a room for choosing a color without connecting to the lobby
+Implemented a room for choosing a color
 ## Stack
 
 - Unity
